@@ -1,0 +1,107 @@
+<div class="card-body">
+    <div class="header-intervention-list">
+        <label class="first-label">list of interventions</label>
+        <button type="button" class="btn btn-primary btn-icon button-icon" placement="bottom" (click)="toggle()"
+            ngbTooltip="Add intervention">
+            <i class="feather icon-plus"></i>
+        </button>
+    </div>
+    <div class="dataTable-top">
+        <div class="dataTable-dropdown">
+            <label>
+                <select class="dataTable-selector" (change)="selectSize($event)" name="type">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select>
+
+                entries per page
+
+            </label>
+        </div>
+
+
+        <div class="dataTable-search">
+            <div class="ng-select">
+                <ng-select [items]="searchField" [multiple]=false bindLabel="value" bindValue="key"
+                    [hideSelected]="true" placeholder="Search by..." [(ngModel)]="selectedfield">
+
+                    <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                        <span class="ng-value-label">
+                            {{item?.value}}</span>
+                        <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                    </ng-template>
+
+                    <ng-template ng-option-tmp let-item="item">
+                        {{item?.value}}
+                    </ng-template>
+                </ng-select>
+            </div>
+
+
+            <div>
+                <input type="text" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key"
+                    class="dataTable-input" placeholder="Search...">
+            </div>
+        </div>
+
+    </div>
+    <div class="table-responsive">
+        <table id="dataTableExample" class="table table-hover" *ngIf="interventions$ | async as interventionsData">
+            <thead>
+                <tr>
+                    <th>Invoice reference</th>
+                    <th>Type</th>
+                    <th>Price</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let intervention of interventionsData?.data" class="tr-class">
+                    <td (click)="toggle(intervention?._id)">{{intervention?.invoice_ref}}</td>
+                    <td (click)="toggle(intervention?._id)">{{intervention?.type}}</td>
+                    <td (click)="toggle(intervention?._id)">{{intervention?.price |currency:'TND':'symbol':'2.2-2'}}
+                    </td>
+                    <td (click)="toggle(intervention?._id)">{{intervention?.date | date :
+                        'dd/MM/yyyy'}}</td>
+                    <td (click)="toggle(intervention?._id)">{{intervention?.description}}</td>
+
+                    <td><a (click)="onDelete(intervention._id)"> <i class="trash-icon" data-feather="trash"
+                                appFeatherIcon></i></a>
+                    </td>
+                </tr>
+
+            </tbody>
+            <tr></tr>
+        </table>
+
+        <!-- Pagination  -->
+        <div class="dataTable-buttom" *ngIf="interventions$ | async as interventionsData" [hidden]="searchPagination">
+            <ng-container [ngSwitch]="true">
+                <div *ngSwitchCase="interventionsData?.total != 0" class="dataTable-info">
+                    Showing {{(currentPage - 1) * size + 1}} to {{interventionsData.count + ((currentPage - 1) *
+                    size)}}
+                    of
+                    {{interventionsData.total}}
+                    entries
+                </div>
+                <div *ngSwitchCase="interventionsData?.total == 0" class="no-data-info">
+                    <div class="intervention-nodata-info bg-soft-danger">
+                        <span>No data available</span>
+                    </div>
+
+                </div>
+                <div *ngSwitchDefault>Third</div>
+            </ng-container>
+            <div>
+                <ngb-pagination [(page)]="currentPage" [pageSize]="size" [collectionSize]="interventionsData.total"
+                    (pageChange)="done()">
+                </ngb-pagination>
+            </div>
+        </div>
+
+    </div>
+</div>

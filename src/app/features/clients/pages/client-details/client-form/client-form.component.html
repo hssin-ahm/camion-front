@@ -1,0 +1,54 @@
+<div class="card-body">
+    <form #clientForm="ngForm" novalidate>
+        <label class="card-title">Client information</label>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="mb-3">
+                    <input type="hidden" #_id="ngModel" name="_id" [ngModel]="client?.data?._id">
+                    <label class="form-label">Name</label><span class="etoile">*</span>
+                    <input type="text" class="form-control" placeholder="Enter name" ngModel="{{client?.data?.name}}"
+                        name="name" #name="ngModel" required />
+                    <p class="text-danger mt-1" *ngIf="(name.invalid && name.touched) ">
+                        Enter name
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="mb-3">
+                    <label class="form-label">Phone number:</label><span class="etoile">*</span>
+                    <input class="form-control mb-4 mb-md-0" prefix="+216 " mask="00 000 000" [showMaskTyped]="true"
+                        ngModel="{{client?.data?.mobile}}" name="mobile" #mobile="ngModel" required />
+                    <small class="text-danger" *ngIf="(mobile.invalid && mobile.touched) ">
+                        Enter phone number
+                    </small>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="mb-3">
+                    <label class="form-label">Adresse</label>
+                    <input type="text" class="form-control" placeholder="Enter adresse"
+                        ngModel="{{client?.data?.adresse}}" name="adresse" #adresse="ngModel" />
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="mb-3">
+                    <label class="form-label">Email address</label>
+                    <input type="text" class="form-control" placeholder="Enter email" ngModel="{{client?.data?.email}}"
+                        name="email" #email="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required />
+                    <div *ngIf="email.errors && (email.invalid && email.touched) ">
+                        <small class="text-danger" *ngIf="email.errors.pattern">Enter the valid email</small>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <button [disabled]="clientForm.invalid" type="submit" class="btn btn-primary submit mt-3" placement="top"
+            ngbTooltip="{{buttonTooltip}}" (click)="submit(clientForm)">{{buttonTooltip}}</button>
+    </form>
+</div>

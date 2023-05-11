@@ -1,0 +1,118 @@
+<app-path></app-path>
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+
+                <h4 class="card-title">Mission search : </h4>
+
+                <div class="from-to">
+                    <label class="label">FROM :</label>
+                    <label class="label">TO :</label>
+                </div>
+                <form class="d-flex range-selection">
+                    <div class="form-group hidden">
+                        <div class="input-group">
+                            <input name="datepicker" class="form-control" ngbDatepicker #datepicker="ngbDatepicker"
+                                [autoClose]="'outside'" (dateSelect)="onDateSelection($event)" [displayMonths]="2"
+                                [dayTemplate]="t" outsideDays="hidden" [startDate]="fromDate!">
+                            <ng-template #t let-date let-focused="focused">
+                                <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+                                    [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date"
+                                    (mouseleave)="hoveredDate = null">
+                                    {{ date.day }}
+                                </span>
+                            </ng-template>
+                        </div>
+                    </div>
+                    <div class="date-picker">
+                        <div class="mb-3">
+                            <div class="input-group" (click)="datepicker.toggle()">
+                                <input #dpFromDate class="form-control" placeholder="yyyy-mm-dd" name="dpFromDate"
+                                    [value]="formatter.format(fromDate)"
+                                    (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+                                <button class="input-group-text" type="button">
+                                    <i class="feather icon-calendar icon-md text-muted"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="ms-2">
+                            <div class="input-group" (click)="datepicker.toggle()">
+                                <input #dpToDate class="form-control" placeholder="yyyy-mm-dd" name="dpToDate"
+                                    [value]="formatter.format(toDate)"
+                                    (input)="toDate = validateInput(toDate, dpToDate.value)">
+                                <button class="input-group-text" type="button">
+                                    <i class="feather icon-calendar icon-md text-muted"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="submit" [disabled]="!(fromDate && toDate)"
+                            class="btn btn-primary submit buttSubmit" placement="bottom" ngbTooltip="Search"
+                            (click)="search()">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="missions">
+    <div class="col-md-12 stretch-card" *ngIf="missions.length != 0">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="card-title">list of missions</h6>
+                <div class="table-responsive">
+                    <table id="dataTableExample" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Truck</th>
+                                <th>Driver</th>
+                                <th>Date</th>
+                                <th>Start location</th>
+                                <th>End location</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let mission of missions" class="tr-class">
+                                <td class="long-paragraph"><a class="td-class"
+                                        routerLink="/missions/mission/{{mission._id}}">
+                                        {{mission?.truck?.registration_number}} {{mission?.truck?.model?.name}}</a>
+                                </td>
+                                <td class="long-paragraph"><a class="td-class"
+                                        routerLink="/missions/mission/{{mission._id}}">
+                                        {{mission?.driver?.first_name}}
+                                        {{mission?.driver?.last_name}}</a></td>
+                                <td><a class="td-class" routerLink="/missions/mission/{{mission._id}}">{{mission.date |
+                                        date :
+                                        'dd/MM/yyyy'}}</a></td>
+                                <td class="long-paragraph"><a class="td-class"
+                                        routerLink="/missions/mission/{{mission._id}}">{{mission.start_location}}</a>
+                                </td>
+                                <td class="long-paragraph"><a class="td-class"
+                                        routerLink="/missions/mission/{{mission._id}}">{{mission.end_location}}</a></td>
+                                <td class="long-paragraph" routerLink="/missions/mission/{{mission._id}}"
+                                    class="long-paragraph">
+                                    <a class="td-class"
+                                        routerLink="/missions/mission/{{mission._id}}">{{mission.description}}</a>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

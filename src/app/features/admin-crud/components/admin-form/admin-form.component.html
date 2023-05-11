@@ -1,0 +1,68 @@
+<app-path></app-path>
+<div class="row">
+    <div class="col-md-12 stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <form #adminForm="ngForm" novalidate>
+                    <label class="card-title">Admin information</label>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <input type="hidden" #_id="ngModel" name="_id" [ngModel]="admin?.data?._id">
+                                <label class="form-label">First Name</label><span class="etoile">*</span>
+                                <input type="text" class="form-control" placeholder="Enter first name"
+                                    ngModel="{{admin?.data?.first_name}}" name="first_name" #first_name="ngModel"
+                                    required />
+                                <p class="text-danger mt-1" *ngIf="(first_name.invalid && first_name.touched) ">
+                                    Enter first name
+                                </p>
+                            </div>
+                        </div><!-- Col -->
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="form-label">Last Name</label><span class="etoile">*</span>
+                                <input type="text" class="form-control" placeholder="Enter last name"
+                                    ngModel="{{admin?.data?.last_name}}" name="last_name" #last_name="ngModel"
+                                    required />
+                                <p class="text-danger mt-1" *ngIf="(last_name.invalid && last_name.touched) ">
+                                    Enter last name
+                                </p>
+                            </div>
+                        </div><!-- Col -->
+                    </div><!-- Row -->
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="form-label">Email address</label><span class="etoile">*</span>
+                                <input type="text" class="form-control" placeholder="Enter email"
+                                    ngModel="{{admin?.data?.email}}" name="email" #email="ngModel"
+                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required />
+                                <div *ngIf="email.errors && (email.invalid && email.touched) ">
+                                    <small class="text-danger" *ngIf="email.errors.required">Email is required
+                                        field</small>
+                                    <small class="text-danger" *ngIf="email.errors.pattern">Enter the valid
+                                        email</small>
+                                </div>
+                            </div>
+                        </div><!-- Col -->
+                        <div class="col-sm-6">
+                            <div class="mb-3" *ngIf="!admin_id">
+                                <label class="form-label">Password</label><span class="etoile">*</span>
+                                <input type="password" class="form-control" autocomplete="off" placeholder="Password"
+                                    ngModel="{{admin?.data?.password}}" pattern=".{6,}" name="password"
+                                    #password="ngModel" />
+                                <p class="text-danger mt-1" *ngIf="(password.invalid && password.touched) ">
+                                    at least 6 or more characters
+                                </p>
+                            </div>
+                        </div><!-- Col -->
+                    </div><!-- Row -->
+                    <input type="hidden" ngModel="admin" name="role" value="admin" />
+                </form>
+                <button [disabled]="adminForm.invalid" type="submit" class="btn btn-primary submit mt-3" placement="top"
+                    ngbTooltip="{{itemActive}}" (click)="submit(adminForm)">{{itemActive}}</button>
+            </div>
+        </div>
+    </div>
+</div>

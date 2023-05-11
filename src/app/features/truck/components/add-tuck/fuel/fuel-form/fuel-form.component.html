@@ -1,0 +1,63 @@
+<div class="card-body">
+    <div class="header-fuel-list">
+        <label class="first-label">Fuel informations</label>
+        <button type="button" class="btn btn-primary btn-icon button-icon" placement="bottom" (click)="toggle()"
+            ngbTooltip="list of fuels" [disabled]="disable_icon">
+            <i class="feather icon-list"></i>
+        </button>
+    </div>
+    <form #fuelForm="ngForm" (ngSubmit)="submit(fuelForm)" novalidate>
+        <div class="row">
+            <div class="col-sm-6">
+                <input type="hidden" #_id="ngModel" name="_id" [ngModel]="fuel?._id">
+                <input type="hidden" #truck="ngModel" name="truck" [ngModel]="truck_id">
+                <label for="exampleInputUsername1" class="form-label">Number of liter</label><span class="etoile">
+                    {{obligatoire}}</span>
+                <input class="form-control" type="number" placeholder="Number of liter"
+                    [ngModel]="fuel?.number_of_liter" name="number_of_liter" #number_of_liter="ngModel" required />
+                <p class="text-danger mt-1" *ngIf="(number_of_liter.invalid && number_of_liter.touched) ">
+                    Number of liter is required
+                </p>
+            </div><!-- Col -->
+            <div class="col-sm-6">
+                <label for="exampleInputUsername1" class="form-label">Price per liter</label><span class="etoile">
+                    {{obligatoire}}</span>
+                <input class="form-control" type="number" placeholder="Price per liter" [ngModel]="fuel?.price_liter"
+                    name="price_liter" #price_liter="ngModel" required />
+                <p class="text-danger mt-1" *ngIf="(price_liter.invalid && price_liter.touched) ">
+                    Number of liter is required
+                </p>
+            </div><!-- Col -->
+        </div><!-- Row -->
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="mb-3">
+                    <label for="exampleInputUsername1" class="form-label">Total</label>
+                    <input class="form-control" type="text" placeholder="Price total"
+                        [ngModel]="price_liter.value * number_of_liter.value" disabled name="price_total"
+                        #price_total="ngModel" required />
+
+                </div>
+            </div>
+
+        </div><!-- Row -->
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="mb-3">
+                    <label class="form-label">Date</label><span class="etoile">
+                        {{obligatoire}}</span>
+                    <input type="date" class="form-control" [ngModel]="fuel?.date | slice:0:10" name="date"
+                        #date="ngModel" required>
+                    <p class="text-danger mt-1" *ngIf="(date.invalid && date.touched) ">
+                        Date is required
+                    </p>
+
+                </div>
+            </div>
+
+        </div><!-- Row -->
+
+
+        <button type="submit" [disabled]="fuelForm.invalid" class="btn btn-primary submit">Submit form</button>
+    </form>
+</div>

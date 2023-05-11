@@ -1,0 +1,32 @@
+.date-picker{
+    display: flex;
+    gap: 25px;
+}
+.label {
+    color: #7987a1;
+  }
+
+.from-to{
+    display: flex;
+    gap: 219px;
+    margin-bottom: 6px;
+}
+.buttSubmit{
+    margin-left: 15px;
+    width: 75px;
+    height: 40px;
+}
+
+.td-class{
+    color: rgba(0, 0, 0, 0.852);
+    padding-right: 80px;
+}
+.tr-class:hover {
+    cursor: pointer;
+  }
+.long-paragraph{
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    max-width: 15ch;
+  }

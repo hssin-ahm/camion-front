@@ -1,0 +1,130 @@
+<div class="card-body">
+    <form #contractForm="ngForm" (ngSubmit)="submit(contractForm)" novalidate>
+        <label class="label">Contract information</label>
+        <div class="row">
+            <div class="col-sm-6">
+                <input type="hidden" #_id="ngModel" name="_id" [ngModel]="contract?._id">
+                <input type="hidden" #truck="ngModel" name="truck" [ngModel]="truck_id">
+                <label for="exampleInputUsername1" class="form-label">Contract reference</label><span class="etoile">
+                    {{obligatoire}}</span>
+                <input class="form-control" type="number" placeholder="Contract reference"
+                    [ngModel]="contract?.contract_reference" name="contract_reference" #contract_reference="ngModel"
+                    required />
+                <p class="text-danger mt-1" *ngIf="(contract_reference.invalid && contract_reference.touched) ">
+                    Contract reference is required
+                </p>
+            </div><!-- Col -->
+            <div class="col-sm-6">
+                <label for="exampleInputUsername1" class="form-label">Responsable</label><span class="etoile">
+                    {{obligatoire}}</span>
+                <input class="form-control" type="text" placeholder="Contract reference"
+                    [ngModel]="contract?.responsable" name="responsable" #responsable="ngModel" required />
+                <p class="text-danger mt-1" *ngIf="(responsable.invalid && responsable.touched) ">
+                    field responsable is required
+                </p>
+            </div><!-- Col -->
+        </div><!-- Row -->
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="mb-3">
+                    <!-- <label for="exampleInputUsername1" class="form-label">Type</label>
+                    <input class="form-control" type="text" placeholder="Contract reference" [ngModel]="contract?.type"
+                        name="type" #type="ngModel" /> -->
+                    <label for="typeahead-basic" class="form-label">Type</label>
+                    <input id="typeahead-basic" name="type" #type="ngModel" type="text" class="form-control"
+                        placeholder="Contract reference" [ngModel]="contract?.type" [ngbTypeahead]="search" />
+                </div>
+            </div><!-- Col -->
+            <div class="col-sm-4">
+                <label class="form-label">Status</label>
+
+                <ng-select [items]="statusItems" [searchable]="false" [ngModel]="contract?.statut" name="statut"
+                    #statut="ngModel" placeholder="Select a status">
+                </ng-select>
+                <p class="text-danger mt-1" *ngIf="(statut.invalid && statut.touched) ">Select a status</p>
+            </div><!-- Col -->
+            <div class="col-sm-4">
+                <!-- <div class="fournisseur-div">
+                    <label class="form-label">Provider <span class="etoile"> {{obligatoire}}</span></label>
+                    <div>
+                        <span class="fournisseur-icon" (click)="openBasicModal(scrollableModal )">+ Add provider</span>
+                    </div>
+                </div>
+                <ng-select [items]="fournisseurs" [multiple]=false bindLabel="name" bindValue="_id"
+                    [hideSelected]="true" placeholder="Select a Provider" name="fournisseur"
+                    [ngModel]="contract?.fournisseur" #fournisseur="ngModel">
+
+                    <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                        <span class="ng-value-label">
+                            {{item?.name}}</span>
+                        <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                    </ng-template>
+
+                    <ng-template ng-option-tmp let-item="item">
+                        {{item?.name}}
+                    </ng-template>
+                </ng-select>
+                <p class="text-danger mt-1" *ngIf="(fournisseur.invalid && fournisseur.touched) ">Select a provider
+                </p> -->
+            </div><!-- Col -->
+        </div><!-- Row -->
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="mb-3">
+                    <label class="form-label">assignment date</label>
+                    <input type="date" class="form-control" [ngModel]="contract?.contract_start_date | slice:0:10"
+                        name="contract_start_date" #contract_start_date="ngModel">
+
+                </div>
+            </div><!-- Col -->
+            <div class="col-sm-6">
+                <div class="mb-3">
+                    <label class="form-label">Expiry date</label>
+                    <input type="date" ngModel name="contract_expiry_date" class="form-control" autocomplete="off"
+                        placeholder="contract expiry date" [ngModel]="contract?.contract_expiry_date | slice:0:10">
+                </div>
+            </div><!-- Col -->
+        </div><!-- Row -->
+
+        <button type="submit" [disabled]="contractForm.invalid" class="btn btn-primary submit" placement="top"
+            ngbTooltip="{{itemActive}}">{{itemActive}}</button>
+    </form>
+</div>
+
+
+
+<!-- Founisseur Modal -->
+<ng-template #scrollableModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="font-size: 20px;">Add a provider</h5>
+        <button type="button" class="btn-close" (click)="modal.close('by: close icon')" aria-label="Close"></button>
+    </div>
+    <form action="" novalidate #founisseurForm="ngForm" (ngSubmit)="onAddFounisseur(founisseurForm)">
+        <div class="modal-body">
+            <div>
+                <label class="form-label">Name:</label>
+                <input type="text" class="form-control" placeholder="Enter name model" ngModel name="name"
+                    #name="ngModel" required>
+                <p class="text-danger mt-1" *ngIf="(name.invalid && name.touched) ">Enter a fournisseur name</p>
+            </div>
+            <div>
+                <label class="form-label">Address:</label>
+                <input type="text" class="form-control" placeholder="Enter name model" ngModel name="adresse"
+                    #adresse="ngModel" required>
+                <p class="text-danger mt-1" *ngIf="(adresse.invalid && adresse.touched) ">Enter adresse</p>
+            </div>
+            <div>
+                <div class="col-md-6">
+                    <label class="form-label">Phone number:</label>
+                    <input class="form-control mb-4 mb-md-0" prefix="+216 " mask="00 000 000" [showMaskTyped]="true"
+                        ngModel name="phone_number" />
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.close('by: close button')">Close</button>
+            <button type="submit" [disabled]="founisseurForm.invalid" class="btn btn-primary"
+                (click)="modal.close('by: save button')">Save changes</button>
+        </div>
+    </form>
+</ng-template>

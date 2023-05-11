@@ -1,0 +1,53 @@
+.status{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 20px;
+    margin-top: 10px;
+}
+.number{
+    background-color: #46ff81;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
+
+.number span{
+    padding-left: 4px;
+}
+
+.numberCircle {
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+    border: 2px solid #666;
+    color: #666;
+    text-align: center;
+    
+    font: 14px Arial, sans-serif;
+}
+
+.active{
+    background: #46ff81 ;
+    
+}
+.inactive{
+    background: #fedce0 ;
+    
+}
+.inshop{
+    background: #FEEABB ;
+    
+}
+// .active{
+//     background: #28e363 ;
+    
+// }
+// .inactive{
+//     background: #f8678bf0 ;
+    
+// }
+// .inshop{
+//     background: #FBBC06 ;
+    
+// }

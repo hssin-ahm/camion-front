@@ -1,0 +1,21 @@
+<app-path></app-path>
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <mat-tab-group mat-stretch-tabs [selectedIndex]="selected.value"
+                    (selectedIndexChange)="selectedIndexChange($event)">
+                    <mat-tab label="Driver information">
+                        <app-driver-form [driver]="driver$ | async">
+                        </app-driver-form>
+                    </mat-tab>
+                    <mat-tab label="Mission history" *ngIf="driver_id">
+                        <app-mission-history *ngIf="selected.value == 1" [driver_id]="driver_id">
+                        </app-mission-history>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<app-path></app-path>
+
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+
+                <h4 class="card-title">Missions list : </h4>
+
+
+                <ng-select [items]="missions" [multiple]=false bindLabel="name" bindValue="_id" [hideSelected]="false"
+                    placeholder=" Select a mission" name="mission" [(ngModel)]="selectedMissionId"
+                    (change)="onInitMap()">
+
+                    <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                        <span class="ng-value-label">
+                            {{item?.name}} - <span class="{{getSpanClass(item?.status)}}">{{item?.status}}</span></span>
+                        <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                    </ng-template>
+
+                    <ng-template ng-option-tmp let-item="item">
+                        {{item?.name}} - <span class="{{getSpanClass(item?.status)}}">{{item?.status}}</span>
+                    </ng-template>
+                </ng-select>
+                <br>
+                <div *ngIf="selectedMission">
+                    <p class="mt-2 text-muted">Start location Adresse: <span
+                            class="fw-bolder">{{startAdresseSelected}}</span>
+                    </p>
+                    <p class="mt-2 text-muted">End location Adresse: <span
+                            class="fw-bolder">{{endAdresseSelected}}</span>
+                    </p>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row" *ngIf="selectedMissionId">
+    <div class="card">
+        <div class="card-body map-body">
+            <div class="map-container">
+                <div class="map-frame">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

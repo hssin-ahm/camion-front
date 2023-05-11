@@ -1,0 +1,10 @@
+<app-intervention-list [truck_id]="truck_id" (interventionToggle)="interventionToggle($event)"
+    *ngIf="!toggle; else interventionForm">
+</app-intervention-list>
+
+
+<ng-template #interventionForm>
+    <app-intervention-form [intervention_id]="intervention_id" [disable_icon]="disable_icon"
+        (interventionToggle)="interventionToggle($event)" [truck_id]="truck_id">
+    </app-intervention-form>
+</ng-template>

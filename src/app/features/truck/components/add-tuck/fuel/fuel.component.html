@@ -1,0 +1,20 @@
+<!-- <app-fuel-list (fuelToggle)="fuelToggle($event)" [truck_id]="truck_id" *ngIf="!toggle; else fuelForm">
+</app-fuel-list>
+
+<ng-template #fuelForm>
+    <app-fuel-form [fuel_id]="fuel_id" [disable_icon]="disable_icon" (fuelToggle)="fuelToggle($event)"
+        [truck_id]="truck_id">
+    </app-fuel-form>
+</ng-template> -->
+
+
+<div *ngIf="!toggle; then fuelList else fuelForm"></div>
+<ng-template #fuelList>
+    <app-fuel-list (fuelToggle)="fuelToggle($event)" [truck_id]="truck_id" *ngIf="!toggle; else fuelForm">
+    </app-fuel-list>
+</ng-template>
+<ng-template #fuelForm>
+    <app-fuel-form [fuel_id]="fuel_id" [disable_icon]="disable_icon" (fuelToggle)="fuelToggle($event)"
+        [truck_id]="truck_id">
+    </app-fuel-form>
+</ng-template>

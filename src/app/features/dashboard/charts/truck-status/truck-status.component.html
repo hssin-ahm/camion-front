@@ -1,0 +1,26 @@
+<div class="d-flex justify-content-between align-items-baseline">
+    <h6 class="card-title mb-0">Trucks status</h6>
+
+</div>
+<div class="row">
+    <div class="">
+        <div class="status">
+            <h3 class="mb-2">Active</h3>
+            <div class="numberCircle active" placement="bottom" ngbTooltip="Number of trucks active">
+                <span>{{totalActiveTruck}}</span>
+            </div>
+        </div>
+        <div class="status">
+            <h3 class="mb-2">Inactive</h3>
+            <div class="numberCircle inactive" placement="bottom" ngbTooltip="Number of trucks inactive">
+                <span>{{totalInShopTruck}}</span>
+            </div>
+        </div>
+        <div class="status">
+            <h3 class="mb-2">In shop</h3>
+            <div class="numberCircle inshop" placement="bottom" ngbTooltip="Number of trucks in shop">
+                <span>{{totalInactiveTruck}}</span>
+            </div>
+        </div>
+    </div>
+</div>

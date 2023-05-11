@@ -1,0 +1,48 @@
+<div class="card-body">
+    <div class="list-cost-header">
+        <label class="first-label">List of costs</label>
+        <div class="dataTable-info" *ngIf="costs$ | async as costsData">
+            <div>
+                Showing {{(page - 1) * limit + 1}} to {{costsData?.count + ((page - 1)
+                *
+                limit)}}
+                of
+                {{costsData?.total}}
+                entries
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table" *ngIf="costs$ | async as costsData">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cost of costsData?.data">
+                    <th>{{cost?.date | slice:0:10}}</th>
+                    <td>{{cost?.description}}</td>
+                    <td>{{cost?.type}}</td>
+                    <td>{{cost?.price_total |currency:'TND':'symbol':'2.2-2'}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Pagination  -->
+        <div class="dataTable-buttom" *ngIf="costs$ | async as costsData" [hidden]="searchPagination">
+
+            <div>
+                <ngb-pagination [(page)]="page" [pageSize]="limit" [collectionSize]="costsData.total"
+                    (pageChange)="done()">
+                </ngb-pagination>
+            </div>
+            <div class="dataTable-info">
+                Total price: <span>{{total_price$ | async}} TND</span>
+            </div>
+        </div>
+    </div>
+
+</div>

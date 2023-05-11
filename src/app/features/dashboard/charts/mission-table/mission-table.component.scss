@@ -1,0 +1,15 @@
+.tr-class:hover {
+    cursor: pointer;
+  }
+  .dataTable-buttom {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .long-paragraph{
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    max-width: 15ch;
+  }

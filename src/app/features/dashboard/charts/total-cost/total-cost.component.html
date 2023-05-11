@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-between align-items-baseline mb-4 mb-md-3">
+    <h6 class="card-title mb-0">Intervention & Fuel cost</h6>
+    <div ngbDropdown>
+        <button ngbDropdownToggle class="btn p-0 no-dropdown-toggle-icon" type="button" id="dropdownMenuButton4">
+            <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal" appFeatherIcon></i>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownMenuButton4">
+            <a ngbDropdownItem class="d-flex align-items-center" (click)="changeChart('bar')"><i
+                    data-feather="bar-chart-2" appFeatherIcon class="icon-sm me-2"></i> <span class="">Bar
+                    chart</span></a>
+            <a ngbDropdownItem class="d-flex align-items-center" (click)="changeChart('line')"><i
+                    data-feather="trending-up" appFeatherIcon class="icon-sm me-2"></i> <span class="">Line
+                    chart</span></a>
+
+        </div>
+    </div>
+</div>
+<div class="row align-items-start">
+    <div class="col-md-7">
+        <p class="text-muted tx-13 mb-3 mb-md-0">TOTAL COST:
+            <span class="text-success">
+                {{totalcostPrice}} DT
+            </span>
+
+    </div>
+    <div class="col-md-5 d-flex justify-content-md-end">
+        <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [ngModel]="model">
+            <label ngbButtonLabel class="btn-outline-primary">
+                <input (click)="changeOptions('week')" ngbButton type="radio" class="btn-check" value='week'> This Week
+            </label>
+            <label ngbButtonLabel class="btn-outline-primary">
+                <input (click)="changeOptions('month')" ngbButton type="radio" class="btn-check" value='month'> This
+                Month
+            </label>
+            <label ngbButtonLabel class="btn-outline-primary">
+                <input (click)="changeOptions('year')" ngbButton type="radio" class="btn-check" value='year'> This Year
+            </label>
+        </div>
+        <!-- <div class="btn-group mb-3 mb-md-0" role="group" aria-label="Basic example">
+            <button type="button" (click)="changeOptions('week')" class="btn btn-outline-primary d-none d-md-block">This
+                Week</button>
+            <button type="button" (click)="changeOptions('month')" class="btn btn-primary">This Month</button>
+            <button type="button" (click)="changeOptions('year')" class="btn btn-outline-primary">This Year</button>
+        </div> -->
+    </div>
+</div>
+<div class="flot-wrapper">
+    <apx-chart [series]="totalCostChartOptions.series" [chart]="totalCostChartOptions.chart"
+        [colors]="totalCostChartOptions.colors" [grid]="totalCostChartOptions.grid"
+        [xaxis]="totalCostChartOptions.xaxis" [yaxis]="totalCostChartOptions.yaxis"
+        [markers]="totalCostChartOptions.markers" [stroke]="totalCostChartOptions.stroke"></apx-chart>
+</div>

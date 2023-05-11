@@ -1,0 +1,133 @@
+<app-path></app-path>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+<div class="card-body">
+    <!-- <div class="container bootstrap snippets bootdey"> -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="main-box no-header clearfix">
+                <div class="main-box-body clearfix">
+                    <div class="table-responsive">
+                        <div class="dataTable-top">
+                            <div class="dataTable-dropdown">
+                                <label>
+                                    <select class="dataTable-selector" (change)="selectSize($event)" name="type">
+                                        <option value="5">5</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                    </select>
+
+                                    entries per page
+
+                                </label>
+                            </div>
+
+                            <div class="dataTable-search">
+                                <div class="ng-select">
+                                    <ng-select [items]="searchField" [multiple]=false bindLabel="value" bindValue="key"
+                                        [hideSelected]="true" placeholder="Search by ..." [(ngModel)]="selectedfield">
+
+                                        <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                                            <span class="ng-value-label">
+                                                {{item?.value}}</span>
+                                            <span class="ng-value-icon right" (click)="clear(item)"
+                                                aria-hidden="true">×</span>
+                                        </ng-template>
+
+                                        <ng-template ng-option-tmp let-item="item">
+                                            {{item?.value}}
+                                        </ng-template>
+                                    </ng-select>
+                                </div>
+
+
+                                <div>
+                                    <input type="text" (ngModelChange)="search(key.value)" #key="ngModel" ngModel
+                                        name="key" class="dataTable-input" placeholder="Search...">
+                                </div>
+                            </div>
+
+                        </div>
+                        <table class="table user-list" *ngIf="admins | async as adminsData">
+
+                            <thead>
+                                <tr>
+                                    <th><span>User</span></th>
+                                    <th><span>Created</span></th>
+                                    <!-- <th class="text-center"><span>Status</span></th> -->
+                                    <th><span>Email</span></th>
+                                    <th><span>Action</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let admin of adminsData.data">
+                                    <td>
+                                        <img src="{{imgBaseUrl}}{{admin?.photo}}" alt="">
+                                        <a routerLink="/admins/update/{{admin._id}}"
+                                            class="user-link">{{admin.first_name}}
+                                            {{admin.last_name}}</a>
+                                        <span class="user-subhead">{{admin.role}}</span>
+                                    </td>
+                                    <td>{{admin.createdAt | date :'dd/MM/yyyy'}}</td>
+                                    <!-- <td class="text-center">
+                                        <span class="label label-success">{{admin.status}}</span>
+                                    </td> -->
+                                    <td>
+                                        <a routerLink=".">{{admin.email}}</a>
+                                    </td>
+                                    <td style="width: 20%;">
+                                        <a routerLink="/admins/update/{{admin._id}}" class="table-link text-info"
+                                            placement="bottom" ngbTooltip="update">
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                        </a>
+                                        <a (click)="onDelete(admin._id)" class="table-link danger" placement="bottom"
+                                            ngbTooltip="delete">
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <!-- Pagination  -->
+                        <div class="dataTable-buttom" *ngIf="admins | async as adminsData" [hidden]="searchPagination">
+                            <ng-container [ngSwitch]="true">
+                                <div *ngSwitchCase="adminsData?.total != 0" class="dataTable-info">
+                                    Showing {{(currentPage - 1) * size + 1}} to {{adminsData.count + ((currentPage - 1)
+                                    *
+                                    size)}}
+                                    of
+                                    {{adminsData.total}}
+                                    entries
+                                </div>
+                                <div *ngSwitchCase="adminsData?.total == 0" class="no-data-info">
+                                    <div class="admin-nodata-info bg-soft-danger">
+                                        <span>No data available</span>
+                                    </div>
+
+                                </div>
+                                <div *ngSwitchDefault>Third</div>
+                            </ng-container>
+
+                            <div *ngIf="adminsData?.total != 0">
+                                <ngb-pagination [(page)]="currentPage" [pageSize]="size"
+                                    [collectionSize]="adminsData.total" (pageChange)="done()">
+                                </ngb-pagination>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- </div> -->
+
+</div>

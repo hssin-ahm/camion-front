@@ -1,0 +1,161 @@
+<app-path></app-path>
+<div class="row">
+    <div class="col-md-12 stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <form #missionForm="ngForm" (ngSubmit)="submit(missionForm)" novalidate>
+                    <label class="label">Mission information</label>
+                    <div class="row">
+                        <input type="hidden" #_id="ngModel" name="_id" [ngModel]="mission?._id">
+
+                        <div class=" select-model col-sm-4" *ngIf="trucks">
+                            <div class="model-div">
+                                <label class="form-label">Truck <span class="etoile"> *</span></label>
+
+                            </div>
+                            <ng-select [items]="trucks" [multiple]=false bindLabel="registration_number" bindValue="_id"
+                                [hideSelected]="true" placeholder="Select a mission truck" name="truck" #truck="ngModel"
+                                [ngModel]="mission?.truck" required>
+
+                                <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                                    <span class="ng-value-label"><img src="{{imgBaseUrl}}{{item?.model?.photo}}"
+                                            width="20px" height="20px">&nbsp;&nbsp;
+                                        {{item?.registration_number}} - {{item?.model?.name}}</span>
+                                    <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                                </ng-template>
+
+                                <ng-template ng-option-tmp let-item="item">
+                                    <img src="{{imgBaseUrl}}{{item?.model?.photo}}" width="20px"
+                                        height="20px">&nbsp;&nbsp;
+                                    {{item?.registration_number}} - {{item?.model?.name}}
+                                </ng-template>
+                            </ng-select>
+
+                            <p class="text-danger mt-1" *ngIf="(truck.invalid && truck.touched) ">Select a truck
+                            </p>
+                        </div>
+                        <div class=" select-model col-sm-4" *ngIf="drivers">
+                            <div class="model-div">
+                                <label class="form-label">Driver <span class="etoile"> *</span></label>
+                            </div>
+                            <ng-select [items]="drivers" [multiple]=false bindLabel="first_name" bindLabel="last_name"
+                                bindValue="_id" [hideSelected]="true" placeholder="Select a mission driver"
+                                name="driver" #driver="ngModel" [ngModel]="mission?.driver" required>
+
+                                <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                                    <span class="ng-value-label">
+                                        {{item?.first_name}} {{item?.last_name}}</span>
+                                    <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                                </ng-template>
+
+                                <ng-template ng-option-tmp let-item="item">
+
+                                    {{item?.first_name}} {{item?.last_name}}
+                                </ng-template>
+                            </ng-select>
+
+                            <p class="text-danger mt-1" *ngIf="(driver.invalid && driver.touched) ">Select a driver
+                            </p>
+                        </div>
+
+                        <div class=" select-model col-sm-4">
+                            <div class="model-div">
+                                <label class="form-label">Client <span class="etoile"> *</span></label>
+                            </div>
+                            <ng-select [items]="clients" [multiple]=false bindValue="_id" [hideSelected]="true"
+                                placeholder="Select a mission client" name="client" #client="ngModel"
+                                [ngModel]="mission?.client" required>
+
+                                <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                                    <span class="ng-value-label">
+                                        {{item?.name}}</span>
+                                    <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                                </ng-template>
+
+                                <ng-template ng-option-tmp let-item="item">
+
+                                    {{item?.name}}
+                                </ng-template>
+                            </ng-select>
+
+                            <p class="text-danger mt-1" *ngIf="(client.invalid && client.touched) ">Select a client
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="mb-3">
+                                <label class="form-label">Title</label><span class="etoile"> *</span>
+                                <input type="text" class="form-control" name="name" #name="ngModel"
+                                    [ngModel]="mission?.name" placeholder="Enter a mission title" required>
+                                <p class="text-danger mt-1" *ngIf="(name.invalid && name.touched) ">
+                                    Enter mission title
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="mb-3">
+                                <label class="form-label">Date</label><span class="etoile"> *</span>
+                                <input type="date" class="form-control" name="date" #date="ngModel"
+                                    [ngModel]="mission?.date | slice:0:10" required>
+                                <p class="text-danger mt-1" *ngIf="(date.invalid && date.touched) ">
+                                    Date is required
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <label class="label">Location</label>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="mb-3">
+                                <label class="form-label">Start location adresse</label><span class="etoile"> *</span>
+                                <input type="text" class="form-control" name="start_location" #start_location="ngModel"
+                                    [ngModel]="mission?.start_location" placeholder="Enter start location" required>
+                                <p class="text-danger mt-1" *ngIf="(start_location.invalid && start_location.touched) ">
+                                    Start location is required
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="mb-3">
+                                <label class="form-label">End location adresse</label><span class="etoile"> *</span>
+                                <input type="text" class="form-control" name="end_location" #end_location="ngModel"
+                                    [ngModel]="mission?.end_location" placeholder="Enter end location" required>
+                                <p class="text-danger mt-1" *ngIf="(end_location.invalid && end_location.touched) ">
+                                    End location is required
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-4" *ngIf="mission_id">
+                            <div class="mb-3">
+                                <i class="{{iStatusClass}}"></i><label class="form-label">Status</label><span
+                                    class="etoile">
+                                    *</span>
+
+                                <ng-select [items]="statusItems" [searchable]="false" [ngModel]="mission?.status"
+                                    name="status" #status="ngModel" placeholder="Select a status"
+                                    (change)="onChange(status.value)" required>
+                                </ng-select>
+                                <p class="text-danger mt-1" *ngIf="(status.invalid && status.touched) ">Select a status
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name="description"
+                                [ngModel]="mission?.description" #description="ngModel"
+                                placeholder="write a description"></textarea>
+                        </div>
+                    </div>
+                    <button [disabled]="missionForm.invalid" type="submit" class="btn btn-primary submit"
+                        placement="top" ngbTooltip="{{itemActive}}">{{itemActive}}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

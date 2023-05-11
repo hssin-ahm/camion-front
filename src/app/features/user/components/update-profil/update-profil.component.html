@@ -1,0 +1,89 @@
+<app-path></app-path>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+    <div class="view-account">
+        <section class="module">
+            <div class="module-inner">
+                <div class="side-bar">
+                    <div class="user-info">
+
+                        <img class="img-profile img-circle img-responsive center-block" [src]="filename" alt="">
+
+                        <p class="mb-3">
+                            <ngb-progressbar *ngIf="fileStatus.percent != 100" type="primary"
+                                [value]="fileStatus.percent" [showValue]="true">
+                            </ngb-progressbar>
+                            <ngb-progressbar type="success" *ngIf="fileStatus.percent == 100" [value]="100">Completed
+                            </ngb-progressbar>
+                        </p>
+                        <div class="mb-3">
+                            <input class="form-control" type="file" id="cropperImageUpload"
+                                (change)="handleFileInput($event)">
+                        </div>
+                        <ul class="meta list list-unstyled">
+                            <li class="name">{{currentUser?.first_name}} {{currentUser?.last_name}}
+                                <label class="label label-info">{{currentUser?.role}}</label>
+                            </li>
+                            <li class="email"><a href="#">{{currentUser?.email}}</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="content-panel">
+                    <form class="form-horizontal" #userForm="ngForm" novalidate>
+                        <h3 class="fieldset-title">Personal Info</h3>
+                        <fieldset class="fieldset">
+                            <input type="hidden" #_id="ngModel" name="_id" [ngModel]="currentUser?._id">
+
+                            <div class="form-group">
+                                <label class="col-md-2 col-sm-3 col-xs-12 control-label">First Name :</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Enter first name"
+                                        ngModel="{{currentUser?.first_name}}" name="first_name" #first_name="ngModel"
+                                        required>
+                                    <p class="text-danger mt-1" *ngIf="(first_name.invalid && first_name.touched) ">
+                                        Enter first name
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 col-sm-3 col-xs-12 control-label">Last Name :</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Enter last name"
+                                        ngModel="{{currentUser?.last_name}}" name="last_name" #last_name="ngModel"
+                                        required>
+                                    <p class="text-danger mt-1" *ngIf="(last_name.invalid && last_name.touched) ">
+                                        Enter last name
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 col-sm-3 col-xs-12 control-label">Email :</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <input type="email" class="form-control" placeholder="Enter email"
+                                        ngModel="{{currentUser?.email}}" name="email" #email="ngModel"
+                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required />
+                                    <div *ngIf="email.errors && (email.invalid && email.touched) ">
+                                        <small class="text-danger" *ngIf="email.errors.required">Email is required
+                                            field</small>
+                                        <small class="text-danger" *ngIf="email.errors.pattern">Enter the valid
+                                            email</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <hr>
+                        <div class="form-group">
+                            <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
+                                <input class="btn btn-primary" type="submit" [disabled]="userForm.invalid"
+                                    placement="bottom" ngbTooltip="Update profile" (click)="submit(userForm)"
+                                    value="Update profile">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

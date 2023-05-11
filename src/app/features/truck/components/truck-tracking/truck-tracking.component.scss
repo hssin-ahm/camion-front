@@ -1,0 +1,28 @@
+
+  .map-body{
+    position: relative;
+height: 550px;
+  }
+.map-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 30px;
+  }
+  
+  .map-frame {
+    border: 2px solid rgba(0, 0, 0, 0.103);
+    height: 100%;
+    border-radius: 6px;
+  }
+  
+  #map {
+    height: 100%;
+  }
+
+  .truckInfos{
+    display: flex;
+    gap: 15px;
+  }

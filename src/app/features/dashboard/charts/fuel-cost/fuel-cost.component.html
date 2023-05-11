@@ -1,0 +1,34 @@
+<div class="d-flex justify-content-between align-items-baseline">
+    <h6 class="card-title mb-0">Fuel cost</h6>
+    <div ngbDropdown>
+        <button ngbDropdownToggle class="btn p-0 no-dropdown-toggle-icon" type="button" id="dropdownMenuButton4">
+            <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal" appFeatherIcon></i>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownMenuButton4">
+            <a ngbDropdownItem class="d-flex align-items-center" (click)="changeChart('bar')"><i
+                    data-feather="bar-chart-2" appFeatherIcon class="icon-sm me-2"></i> <span class="">Bar
+                    chart</span></a>
+            <a ngbDropdownItem class="d-flex align-items-center" (click)="changeChart('line')"><i
+                    data-feather="trending-up" appFeatherIcon class="icon-sm me-2"></i> <span class="">Line
+                    chart</span></a>
+
+        </div>
+    </div>
+</div>
+<div class="row fuel-chart">
+    <div class="col-6 col-md-12 col-xl-5">
+        <h3 class="mb-2">Total price :</h3>
+        <div class="d-flex align-items-baseline">
+            <p class="text-success">
+                <span>{{totalFuelPrice}} DT</span>
+            </p>
+        </div>
+    </div>
+    <div class="col-6 col-md-12 col-xl-7">
+        <div class="mt-md-3 mt-xl-0">
+            <apx-chart [series]="fuelCostChartOptions.series" [chart]="fuelCostChartOptions.chart"
+                [colors]="fuelCostChartOptions.colors" [plotOptions]="fuelCostChartOptions.plotOptions"
+                [xaxis]="fuelCostChartOptions.xaxis"></apx-chart>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="row w-100 mx-0 auth-page">
+    <div class="col-md-8 col-xl-6 mx-auto">
+        <div class="card">
+            <div class="row">
+                <div class="col-md-4 pe-md-0">
+                    <div class="auth-side-wrapper"
+                        [ngStyle]="{ 'background-image': 'url(./assets/images/truck_with_satelite_fp.jpg)' }">
+
+                    </div>
+                </div>
+                <div class="col-md-8 ps-md-0">
+                    <div class="auth-form-wrapper px-4 py-5">
+                        <!-- <a routerLink="." class="nobleui-logo d-block mb-2">Tachogra<span>PH</span></a> -->
+                        <a routerLink="." class="nobleui-logo d-block mb-2"> Truckl<span>er</span></a>
+
+                        <h5 class="text-muted fw-normal mb-4">Please fill in the email field</h5>
+                        <app-backend-error-messages *ngIf="backendErrors$ | async" [backendError]="backendError">
+                        </app-backend-error-messages>
+                        <form class="forms-sample" #sendForm="ngForm" (ngSubmit)="send(sendForm)">
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                <input type="email" class="form-control" ngModel name="email" id="exampleInputEmail1"
+                                    placeholder="Email" required>
+
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary me-2 mb-2 mb-md-0">{{buttonValue}}</button>
+                            </div>
+                            <a (click)="redirect()" class="d-block mt-3 text-muted">Return to login interface?</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

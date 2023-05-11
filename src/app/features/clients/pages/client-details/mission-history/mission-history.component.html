@@ -1,0 +1,103 @@
+<div class="card-body">
+    <label class="card-title">Mission history</label>
+    <div class="dataTable-top">
+        <div class="dataTable-dropdown">
+            <label>
+                <select class="dataTable-selector" (change)="selectSize($event)" name="type">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select>
+
+                entries per page
+
+            </label>
+        </div>
+
+        <div class="dataTable-search">
+            <div class="ng-select">
+                <ng-select [items]="searchField" [multiple]=false bindLabel="value" bindValue="key"
+                    [hideSelected]="true" placeholder="Search by ..." [(ngModel)]="selectedfield">
+
+                    <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                        <span class="ng-value-label">
+                            {{item?.value}}</span>
+                        <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                    </ng-template>
+
+                    <ng-template ng-option-tmp let-item="item">
+                        {{item?.value}}
+                    </ng-template>
+                </ng-select>
+            </div>
+
+
+            <div>
+                <input type="text" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key"
+                    class="dataTable-input" placeholder="Search...">
+            </div>
+        </div>
+
+    </div>
+    <div class="table-responsive">
+        <table id="dataTableExample" class="table table-hover" *ngIf="missions as missionsData">
+            <thead>
+                <tr>
+                    <th>Truck</th>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Start location</th>
+                    <th>End location</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let mission of missionsData.data" class="tr-class">
+                    <td routerLink="/missions/mission/{{mission._id}}" class="long-paragraph">
+                        {{mission?.truck?.registration_number}} - {{mission?.truck?.model?.name}}</td>
+                    <td routerLink="/missions/mission/{{mission._id}}" class="long-paragraph">
+                        {{mission?.name}}</td>
+                    <td routerLink="/missions/mission/{{mission._id}}" class="long-paragraph">{{mission.date | date :
+                        'dd/MM/yyyy'}}</td>
+                    <td routerLink="/missions/mission/{{mission._id}}" class="long-paragraph">{{mission.start_location}}
+                    </td>
+                    <td routerLink="/missions/mission/{{mission._id}}" class="long-paragraph">{{mission.end_location}}
+                    </td>
+                    <td routerLink="/missions/mission/{{mission._id}}" class="long-paragraph">
+                        {{mission.description}}</td>
+
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Pagination  -->
+        <div class="dataTable-buttom" *ngIf="missions as missionsData" [hidden]="searchPagination">
+            <ng-container [ngSwitch]="true">
+                <div *ngSwitchCase="missionsData?.total != 0" class="dataTable-info">
+                    Showing {{(currentPage - 1) * size + 1}} to {{missionsData.count + ((currentPage - 1) *
+                    size)}}
+                    of
+                    {{missionsData.total}}
+                    entries
+                </div>
+                <div *ngSwitchCase="missionsData?.total == 0" class="no-data-info">
+                    <div class="mission-nodata-info bg-soft-danger">
+                        <span>No data available</span>
+                    </div>
+
+                </div>
+                <div *ngSwitchDefault>Third</div>
+            </ng-container>
+
+            <div *ngIf="missionsData?.total != 0">
+                <ngb-pagination [(page)]="currentPage" [pageSize]="size" [collectionSize]="missionsData.total"
+                    (pageChange)="done()">
+                </ngb-pagination>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>

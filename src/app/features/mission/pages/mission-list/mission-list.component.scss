@@ -1,0 +1,106 @@
+.tr-class:hover {
+    cursor: pointer;
+  }
+  .dataTable-buttom {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .trash-icon {
+    height: 20px;
+    width: 20px;
+    color: red;
+    transition: 0.3s;
+  }
+  .trash-icon:hover {
+    opacity: 0.6;
+  
+  }
+  .map-icon {
+    height: 20px;
+    width: 20px;
+    transition: 0.3s;
+  }
+  .map-icon:hover {
+    opacity: 0.6;
+  }
+  
+
+.dataTable-search {
+  display: flex;
+}
+.ng-select {
+  width: 150px;
+}
+
+.mission-statut {
+  padding: 0.4rem;
+  display: inline-flex;
+  white-space: nowrap;
+  border-radius: 15px;
+}
+
+.mission-statut .indicator {
+  width: 12px;
+  height: 12px;
+  margin-top: 0.3em;
+  margin-right: 0.5rem;
+  float: left;
+  border-radius: 50%;
+}
+
+.mission-statut span {
+  font-size: 0.8125rem;
+  color: #3c4142;
+  font-weight: 600;
+}
+
+.bg-soft-danger {
+  background-color: #fedce0;
+}
+.bg-soft-warning {
+  background-color: #fff4e1;
+}
+.bg-soft-success {
+  background-color: #d1f6f2;
+}
+
+.mission-nodata-info {
+  padding: 0.5rem;
+  display: inline-flex;
+  white-space: nowrap;
+  border-radius: 15px;
+}
+
+.mission-nodata-info .indicator {
+  width: 10px;
+  height: 10px;
+  margin-top: 0.2em;
+  margin-right: 0.5rem;
+  float: left;
+  border-radius: 50%;
+}
+
+.mission-nodata-info span {
+  font-size: 0.8125rem;
+  color: rgba(72, 15, 15, 0.692);
+  font-weight: 600;
+  margin-left: 5px;
+}
+
+.bg-soft-danger {
+  background-color: #fedce0;
+}
+.no-data-info{
+  margin-top: 25px;
+}
+.long-paragraph{
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  max-width: 15ch;
+}
+.icon{
+  display: flex;
+  gap: 10px;
+}

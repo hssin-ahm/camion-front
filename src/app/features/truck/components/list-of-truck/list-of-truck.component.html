@@ -1,0 +1,112 @@
+<app-path></app-path>
+
+<div class="row">
+    <div class="col-md-12 stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="dataTable-top">
+                    <div class="dataTable-dropdown">
+                        <label>
+                            <select class="dataTable-selector" (change)="selectSize($event)" name="type">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                            </select>
+
+                            entries per page
+
+                        </label>
+                    </div>
+
+                    <div class="dataTable-search">
+                        <div class="ng-select">
+                            <ng-select [items]="searchField" [multiple]=false bindLabel="value" bindValue="key"
+                                [hideSelected]="true" placeholder="Search by ..." [(ngModel)]="selectedfield">
+
+                                <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                                    <span class="ng-value-label">
+                                        {{item?.value}}</span>
+                                    <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                                </ng-template>
+
+                                <ng-template ng-option-tmp let-item="item">
+                                    {{item?.value}}
+                                </ng-template>
+                            </ng-select>
+                        </div>
+
+
+                        <div>
+                            <input type="text" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key"
+                                class="dataTable-input" placeholder="Search...">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="table-responsive">
+                    <table id="dataTableExample" class="table table-hover" *ngIf="trucks | async as trucksData">
+                        <thead>
+                            <tr>
+                                <th>Truck</th>
+                                <th>Registration number</th>
+                                <th>Model</th>
+                                <th>Transmission</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let truck of trucksData.data" class="tr-class">
+                                <td class="py-1">
+                                    <img src="{{imgBaseUrl}}{{truck.model?.photo}}" alt="image">
+                                </td>
+                                <td routerLink="/trucks/add/{{truck._id}}">{{truck.registration_number}}</td>
+                                <td routerLink="/trucks/add/{{truck._id}}">{{truck.model?.name}}</td>
+                                <td routerLink="/trucks/add/{{truck._id}}">{{truck.transmission}}</td>
+                                <td routerLink="/trucks/add/{{truck._id}}">
+                                    <div class="truck-statut {{getDivClass(truck.statut)}}">
+                                        <i class="indicator {{getIClass(truck.statut)}}"></i>
+                                        <span>{{truck.statut}}</span>
+                                    </div>
+                                </td>
+                                <td><a (click)="onDelete(truck._id)"> <i class="trash-icon" data-feather="trash"
+                                            appFeatherIcon></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Pagination  -->
+                    <div class="dataTable-buttom" *ngIf="trucks | async as trucksData" [hidden]="searchPagination">
+
+                        <ng-container [ngSwitch]="true">
+                            <div *ngSwitchCase="trucksData?.total != 0" class="dataTable-info">
+                                Showing {{(currentPage - 1) * size + 1}} to {{trucksData.count + ((currentPage - 1) *
+                                size)}}
+                                of
+                                {{trucksData.total}}
+                                entries
+                            </div>
+                            <div *ngSwitchCase="trucksData?.total == 0" class="no-data-info">
+                                <div class="truck-nodata-info bg-soft-danger">
+                                    <span>No data available</span>
+                                </div>
+
+                            </div>
+                            <div *ngSwitchDefault>Third</div>
+                        </ng-container>
+                        <div>
+                            <ngb-pagination [(page)]="currentPage" [pageSize]="size" [collectionSize]="trucksData.total"
+                                (pageChange)="done()">
+                            </ngb-pagination>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

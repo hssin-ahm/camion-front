@@ -1,0 +1,51 @@
+<app-path></app-path>
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+
+                <h4 class="card-title">Trucks list : </h4>
+
+
+                <ng-select [items]="truckInfos" [multiple]=false bindLabel="name" bindValue="_id" [hideSelected]="false"
+                    placeholder=" Select a truck" name="truckInfo" [(ngModel)]="selectedtruckInfoId"
+                    (change)="onInitMap()">
+
+                    <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                        <span class="ng-value-label"><img src="{{imgBaseUrl}}{{item?.truck?.model?.photo}}" width="20px"
+                                height="20px">&nbsp;&nbsp;
+                            {{item?.truck?.registration_number}} - {{item?.truck?.model?.name}}</span>
+                        <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                    </ng-template>
+
+                    <ng-template ng-option-tmp let-item="item"><img src="{{imgBaseUrl}}{{item?.truck?.model?.photo}}"
+                            width="20px" height="20px">&nbsp;&nbsp;
+                        {{item?.truck?.registration_number}} - {{item?.truck?.model?.name}}
+                    </ng-template>
+                </ng-select>
+                <br>
+                <div *ngIf="selectedTruckInfo" class="truckInfos">
+                    <p class="mt-2 text-muted">Speed: <span class="fw-bolder">{{selectedTruckInfo?.speed}},</span>
+                    </p>
+                    <p class="mt-2 text-muted">Mileage: <span class="fw-bolder">{{selectedTruckInfo?.mileage}},</span>
+                    </p>
+                    <p class="mt-2 text-muted">Fuel: <span class="fw-bolder">{{selectedTruckInfo?.fuel}},</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="selectedtruckInfoId">
+    <div class="card">
+        <div class="card-body map-body">
+            <div class="map-container">
+                <div class="map-frame">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
